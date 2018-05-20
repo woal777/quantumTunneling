@@ -1,7 +1,7 @@
 try:
-    from quantum_mach import solve2
+    from main import solve
 except ImportError:
-    import solve2
+    import main.solve
 
 from cmath import exp, sqrt, sinh, pi
 import matplotlib.pyplot as plt
@@ -37,19 +37,37 @@ def fn(v, p1, p2, mr):
 
 if __name__ == "__main__":
     fig = plt.figure()
-    fig.add_subplot(211)
     d = 4.8e-9  # m
-
-    s = solve2.SolvingProblem(d, 1, 0.48, .96, 1.)
+    #area = 10e-9 * 2 * pi * 1e+6
+    area = 1
+    # up
+    fig.add_subplot(221)
+    s = solve.SolvingProblem(d, area, 0.24, 1.52, 1.)
     s.set_temperature(10)
     x, y = s.main(-0.3, .3)
-    x, y = -x, -y
+    plt.plot(x, y, 'g')
+
+    # down
+    fig.add_subplot(222)
+    s = solve.SolvingProblem(d, area, 0.48, .96, 1.)
+    s.set_temperature(10)
+    x, y = s.main(-0.3, .3)
     plt.plot(x, y, 'g')
 
     # up
-    fig.add_subplot(212)
+    fig.add_subplot(224)
     x = np.linspace(-.3, .3, 30)
-    y = [di(v, 0.48, .96, 1) for v in x]
+    y = np.array([di(v, 0.24, 1.52, 1) * area for v in x])
+    plt.plot(-x, -y)
+    fig.add_subplot(221)
+    plt.plot(-x, -y)
 
-    plt.plot(x, y)
+    # down
+    fig.add_subplot(224)
+    x = np.linspace(-.3, .3, 30)
+    y = np.array([di(v, .48, .96, 1) * area for v in x])
+    plt.plot(-x, -y)
+    fig.add_subplot(222)
+    plt.plot(-x, -y)
+
     plt.show()
