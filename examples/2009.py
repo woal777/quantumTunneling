@@ -46,6 +46,8 @@ if __name__ == "__main__":
     s.set_temperature(10)
     x, y = s.main(-0.3, .3)
     plt.plot(x, y, 'g')
+    fig.add_subplot(223)
+    plt.plot(x, y)
 
     # down
     fig.add_subplot(222)
@@ -53,21 +55,19 @@ if __name__ == "__main__":
     s.set_temperature(10)
     x, y = s.main(-0.3, .3)
     plt.plot(x, y, 'g')
+    fig.add_subplot(223)
+    plt.plot(x, y)
 
     # up
-    fig.add_subplot(224)
+    fig.add_subplot(221)
     x = np.linspace(-.3, .3, 30)
     y = np.array([di(v, 0.24, 1.52, 1) * area for v in x])
     plt.plot(-x, -y)
-    fig.add_subplot(221)
-    plt.plot(-x, -y)
 
     # down
-    fig.add_subplot(224)
+    fig.add_subplot(222)
     x = np.linspace(-.3, .3, 30)
     y = np.array([di(v, .48, .96, 1) * area for v in x])
-    plt.plot(-x, -y)
-    fig.add_subplot(222)
     plt.plot(-x, -y)
 
     plt.show()
