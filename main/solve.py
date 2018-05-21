@@ -112,7 +112,7 @@ class SolvingProblemArray(SolvingProblem):
 
     def __init__(self, thickness: float, area: float, arr, eff_m):
         SolvingProblem.__init__(self, thickness, area, start=0, end=None, eff_m=eff_m)
-        self.N = len(arr)
+        self.N = len(arr) - 1
         self.potential = array([0.3])
         self.reduced_mass = cmath.sqrt(0.511 * eff_m) * 1e+3 / 299792458  # eV ** 0.5 * s / m
         self.area = area
@@ -137,10 +137,10 @@ class SolvingProblemArray(SolvingProblem):
         result.put(constants * i_tot)
 
     def gen_pot(self, start=0., end=1., v=0.):
-        self.potential = np.ones(self.N + 2)
+        self.potential = np.zeros(self.N * 100 + 2)
         for i in range(len(self.arr) - 1):
             self.potential[100 * i + 1: 100 * (i + 1) + 1] = np.linspace(self.arr[i] + Ef, self.arr[i + 1] + Ef, 100)
-        self.potential += np.linspace(0, v, self.N + 2)
+        self.potential += np.linspace(0, v, self.N * 100 + 2)
         self.potential.put(0, 0)
         self.potential.put(-1, v)
 
