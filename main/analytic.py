@@ -28,7 +28,10 @@ def fn(d, v, p1, p2, mr):
         C = C
     else:
         C = -C
-    return (C * E ** 2 / p * exp(-4 * (2 * m) ** 0.5 * p ** 1.5 / (3 * h_ * e * E))).real
+    try:
+        return (C * E ** 2 / p * exp(-4 * (2 * m) ** 0.5 * p ** 1.5 / (3 * h_ * e * E))).real
+    except OverflowError:
+        print('over')
 
 
 ### sze ch8. TUNNEL DEVICES
@@ -47,4 +50,10 @@ def dt_sze(d, phi0, v, mr):
 def fn_sze(phi0, ep, v, mr):
     ep0 = 8 * pi / 3 / h * sqrt(2 * mr * q) * phi0 ** 1.5
     j0 = q ** 2 * pow(e, 2) / (4 * pi * h * phi0) * (
-                exp(-ep0 / ep) - (1 + 2 * v / phi0) * exp(-ep0 / ep * sqrt(1 + (2 * v / phi0))))
+            exp(-ep0 / ep) - (1 + 2 * v / phi0) * exp(-ep0 / ep * sqrt(1 + (2 * v / phi0))))
+
+
+def simmon_low(phi, V, d):
+    j0 = 3 * sqrt(2 * m0 * phi) / 2 / d * pow(e / h, 2)
+    term_exp = -4 * pi * d / h * sqrt(2 * m0 * phi)
+    return j0 * V * exp(term_exp)

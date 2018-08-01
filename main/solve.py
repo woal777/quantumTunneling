@@ -12,7 +12,7 @@ h = 4.135667662 * 1e-15  # eV * s
 hbar = 6.582119514 * 1e-16  # eV * s
 electron = 1.602e-19  # C
 img = complex(0, 1)
-Ef = 7.
+Ef = 0.
 tol = 1e-20
 cexp = cmath.exp
 dot = np.dot
@@ -26,7 +26,7 @@ class SolvingProblem:
     # potential variables
 
     def __init__(self, thickness: float, area: float, start: float, end, eff_m):
-        self.N = 500 + 2
+        self.N = 50 + 2
         self.potential = array([0.3])
         self.reduced_mass = cmath.sqrt(0.511 * eff_m) * 1e+3 / 299792458  # eV ** 0.5 * s / m
         self.reduced_k = self.reduced_mass / hbar

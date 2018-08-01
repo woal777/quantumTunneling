@@ -5,6 +5,7 @@ except ImportError:
 
 from cmath import exp, sqrt, sinh, pi
 import matplotlib.pyplot as plt
+from main import analytic
 import numpy as np
 
 c = 3e+8  # m/s
@@ -41,16 +42,21 @@ if __name__ == "__main__":
     # area = 10e-9 * 2 * pi * 1e+6
     area = 1e+3 * pi * 50e-6 ** 2
     start = 1.
+    offset = .5
     # up
-    s = solve.SolvingProblem(d, area, .9, .95, 1)
-    s.set_temperature(10)
-    x, y = s.main(-start, start)
+    #s = solve.SolvingProblem(d, area, .9 + offset, .95 + offset, 1)
+    #s.set_temperature(10)
+    #x, y = s.main(-start, start)
+    x = np.linspace(-start, start)
+    y = [analytic.di(d, r, .9 + offset, .95 + offset, 1) for r in x]
     plt.plot(x, y, 'g')
 
     # down
-    s = solve.SolvingProblem(d, area, 1.35, .5, 1)
-    s.set_temperature(10)
-    x, y = s.main(-start, start)
+    #s = solve.SolvingProblem(d, area, 1.35 + offset, .5 + offset, 1)
+    #s.set_temperature(10)
+    #x, y = s.main(-start, start)
+    x = np.linspace(-start, start)
+    y = [analytic.di(d, r, .9 + offset, .95 + offset, 1) for r in x]
     plt.plot(x, y)
 
     plt.show()

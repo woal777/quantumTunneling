@@ -3,7 +3,7 @@ try:
 except ImportError:
     import main.solve
 
-from cmath import exp, sqrt, sinh, pi
+from cmath import exp, sqrt, sinh, pi, log
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -24,50 +24,61 @@ def di(v, p1, p2, mr):
 
 
 def fn(v, p1, p2, mr):
-    m = mr * m0
-    E = - v / (e * d) + (p2 - p1) / (e * d)
-    C = e ** 3 * m0 / (16 * pi ** 2 * h_ * m)
+    E = v / d + (p2 - p1) / d
+    C = 2.2 * e / (16 * pi ** 2 * h_)
     p = p2
     if v > 0:
         C = C
     else:
         C = -C
-    return (C * E ** 2 / p * exp(-4 * (2 * m) ** 0.5 * p ** 1.5 / (3 * h_ * e * E))).real
+    try:
+        return (exp(log(C * E ** 2 / p) - 4 * (2 * m0 * mr) ** 0.5 * p ** 1.5 / (3 * h_ * E))).real
+    except OverflowError:
+        print((3 * h_ * e * E), v)
+        return 0
 
 
-if __name__ == "__main__":
+fn()
+
+if __name__ == "___main__":
     fig = plt.figure()
     d = 4.8e-9  # m
-    #area = 10e-9 * 2 * pi * 1e+6
+    # area = 10e-9 * 2 * pi * 1e+6
+    start = -.3
+    end = -start
     area = 1
     # up
     fig.add_subplot(221)
     s = solve.SolvingProblem(d, area, 0.24, 1.52, 1.)
-    s.set_temperature(10)
-    x, y = s.main(-0.3, .3)
+    s.set_temperature(5)
+    x, y = s.main(start, end)
     plt.plot(x, y, 'g')
     fig.add_subplot(223)
     plt.plot(x, y)
 
     # down
-    fig.add_subplot(222)
     s = solve.SolvingProblem(d, area, 0.48, .96, 1.)
-    s.set_temperature(10)
-    x, y = s.main(-0.3, .3)
+    s.set_temperature(5)
+    x, y = s.main(start, end)
+    fig.add_subplot(222)
     plt.plot(x, y, 'g')
     fig.add_subplot(223)
     plt.plot(x, y)
 
     # up
+    x = np.linspace(start, end, 30)
+    y = np.array([fn(v, 0.24, 1.52, 1) * area for v in x])
     fig.add_subplot(221)
-    x = np.linspace(-.3, .3, 30)
-    y = np.array([di(v, 0.24, 1.52, 1) * area for v in x])
-    plt.plot(-x, -y)
+    plt.plot(x, y)
+    fig.add_subplot(224)
+    plt.plot(x, y)
 
     # down
+    x = np.linspace(start, end, 30)
+    y = np.array([fn(v, .48, .96, 1) * area for v in x])
     fig.add_subplot(222)
-    x = np.linspace(-.3, .3, 30)
-    y = np.array([di(v, .48, .96, 1) * area for v in x])
-    plt.plot(-x, -y)
+    plt.plot(x, y)
+    fig.add_subplot(224)
+    plt.plot(x, y)
 
     plt.show()
