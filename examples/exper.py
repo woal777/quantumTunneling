@@ -1,11 +1,11 @@
 try:
-    from main import solve
+    from main import solve, analytic
 except ImportError:
     import main.solve
+    import main.analytic as analytic
 
 from cmath import exp, sqrt, sinh, pi
 import matplotlib.pyplot as plt
-from main import analytic
 import numpy as np
 
 c = 3e+8  # m/s
