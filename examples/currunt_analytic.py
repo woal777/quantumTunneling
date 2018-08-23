@@ -11,11 +11,11 @@ if __name__ == "__main__":
         x = np.linspace(-.3, .3, 30)
         area = 0.5e-6 ** 2
         dimension = 1e+6
-        y = [-di(v, 0.24, 1.52, 1) * area * dimension for v in x]
+        y = [-di(d, v, 0.24, 1.52, 1) * area * dimension for v in x]
         plt.plot(-x, y)
 
         # down
-        y = [-di(v, 0.48, .96, 1) * area * dimension for v in x]
+        y = [-di(d, v, 0.48, .96, 1) * area * dimension for v in x]
         plt.plot(-x, y)
         plt.xlim((-.3, .3))
         plt.show()

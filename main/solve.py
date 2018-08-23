@@ -37,12 +37,14 @@ class SolvingProblem:
         self.temperature = 300. * 8.617343e-5
         self.arr = array([])
 
-    def main(self, start, end):
-        print(self.temperature, self.area, self.dx, self.reduced_k)
+    def main(self, start, end, vlen=False):
         s_time = time.time()
-        n_V = 22
-        queue = [Queue() for _ in range(n_V)]
-        bias = np.linspace(start, end, n_V)
+        if vlen:
+            bias = vlen
+        else:
+            n_V = 22
+            bias = np.linspace(start, end, n_V)
+        queue = [Queue() for _ in range(len(bias))]
         p = [Process(target=self.current, args=(r, output)) for r, output in zip(bias, queue)]
         di = []
         for i in p:
@@ -51,7 +53,7 @@ class SolvingProblem:
             i.join()
         for i in queue:
             di.append(i.get())
-        print('spended time is %fs' % (time.time() - s_time))
+        # print('spended time is %fs' % (time.time() - s_time))
         return bias, np.array(di)
 
     def current(self, V, result):
@@ -126,7 +128,7 @@ class SolvingProblemArray(SolvingProblem):
             self.potential[100 * i + 1: 100 * (i + 1) + 1] = np.linspace(self.arr[i] + Ef, self.arr[i + 1] + Ef, 100)
         self.potential += np.linspace(0, v, self.N)
         self.potential.put(0, Ef)
-        self.potential.put(-1, Ef+v)
+        self.potential.put(-1, Ef + v)
 
 
 if __name__ == "__main__":

@@ -38,25 +38,29 @@ def fn(v, p1, p2, mr):
 
 if __name__ == "__main__":
     fig = plt.figure()
-    d = 10.e-9  # m
     # area = 10e-9 * 2 * pi * 1e+6
-    area = 1e+3 * pi * 50e-6 ** 2
+    area = 1e+1 * pi * 50e-6 ** 2 * 4e+4
     start = 1.
-    offset = .5
+    d = 5.e-9  # m
+    diff = -1.5e-9
+    mr = .8
+    vlen = list(np.linspace(-1., 1., 30))
+    temp = 300
     # up
-    #s = solve.SolvingProblem(d, area, .9 + offset, .95 + offset, 1)
-    #s.set_temperature(10)
-    #x, y = s.main(-start, start)
-    x = np.linspace(-start, start)
-    y = [analytic.di(d, r, .9 + offset, .95 + offset, 1) for r in x]
-    plt.plot(x, y, 'g')
+    s = solve.SolvingProblem(d, area, 1.55, 1.4, mr)
+    s.set_temperature(temp)
+    x, y = s.main(-start, start, vlen=vlen)
+    # x = np.linspace(-start, start)
+    # y = [analytic.di(d, r, .9 + offset, .95 + offset, 1) for r in x]
+    plt.semilogy(x, abs(y), 'g')
 
     # down
-    #s = solve.SolvingProblem(d, area, 1.35 + offset, .5 + offset, 1)
-    #s.set_temperature(10)
-    #x, y = s.main(-start, start)
-    x = np.linspace(-start, start)
-    y = [analytic.di(d, r, .9 + offset, .95 + offset, 1) for r in x]
-    plt.plot(x, y)
-
+    s = solve.SolvingProblem(d + diff, area, 2.35, 1.35, mr)
+    s.set_temperature(temp)
+    x, y2 = s.main(-start, start, vlen=vlen)
+    print(y[1] / y[0], y2[1] / y2[0])
+    print(y[0] / y2[0], y[1] / y2[1])
+    # x = np.linspace(-start, start)
+    # y = [analytic.di(d, r, 1.35 + offset, .5 + offset, 1) for r in x]
+    plt.semilogy(x, abs(y2))
     plt.show()
