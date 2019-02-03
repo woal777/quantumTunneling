@@ -25,18 +25,6 @@ plt = matplotlib.pyplot
 class SolvingProblem:
     # potential variables
 
-    def __init__(self, thickness: float, area: float, start: float, end, eff_m):
-        self.N = 50 + 2
-        self.potential = array([0.3])
-        self.reduced_mass = cmath.sqrt(0.511 * eff_m) * 1e+3 / 299792458  # eV ** 0.5 * s / m
-        self.reduced_k = self.reduced_mass / hbar
-        self.start = start
-        self.end = end
-        self.area = area
-        self.dx = thickness / self.N
-        self.temperature = 300. * 8.617343e-5
-        self.arr = array([])
-
     def main(self, start, end, vlen=False):
         s_time = time.time()
         if vlen:
@@ -102,33 +90,13 @@ class SolvingProblem:
         for n in range(0, self.N - 1):
             if k[n].__abs__() < 1e-5:
                 continue
-            T11 = (k[n] + k[n + 1]) / 2 / k[n] * cexp(-1 * img * k[n] * self.dx)
-            T12 = (k[n] - k[n + 1]) / 2 / k[n] * cexp(-1 * img * k[n] * self.dx)
-            T21 = (k[n] - k[n + 1]) / 2 / k[n] * cexp(img * k[n] * self.dx)
-            T22 = (k[n] + k[n + 1]) / 2 / k[n] * cexp(img * k[n] * self.dx)
+            T11 = (k[n] + k[n + 1]) / 2 / k[n] * cexp(-1j * k[n] * self.dx)
+            T12 = (k[n] - k[n + 1]) / 2 / k[n] * cexp(-1j * k[n] * self.dx)
+            T21 = (k[n] - k[n + 1]) / 2 / k[n] * cexp(1j * k[n] * self.dx)
+            T22 = (k[n] + k[n + 1]) / 2 / k[n] * cexp(1j * k[n] * self.dx)
             matrix = dot(matrix, [[T11, T12], [T21, T22]])
 
         return matrix[0][0].__abs__() ** -2
-
-
-class SolvingProblemArray(SolvingProblem):
-
-    def __init__(self, thickness: float, area: float, arr, eff_m, start: float = 0, end=0):
-        super().__init__(thickness, area, start, end, eff_m)
-        self.N = (len(arr) - 1) * 100 + 2
-        self.potential = array([0.3])
-        self.reduced_mass = cmath.sqrt(0.511 * eff_m) * 1e+3 / 299792458  # eV ** 0.5 * s / m
-        self.area = area
-        self.dx = thickness / self.N
-        self.arr = arr
-
-    def gen_pot(self, start=0., end=1., v=0.):
-        self.potential = np.zeros(self.N)
-        for i in range(len(self.arr) - 1):
-            self.potential[100 * i + 1: 100 * (i + 1) + 1] = np.linspace(self.arr[i] + Ef, self.arr[i + 1] + Ef, 100)
-        self.potential += np.linspace(0, v, self.N)
-        self.potential.put(0, Ef)
-        self.potential.put(-1, Ef + v)
 
 
 if __name__ == "__main__":
