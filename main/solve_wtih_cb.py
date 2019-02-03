@@ -7,6 +7,7 @@ from numpy.core.multiarray import ndarray
 from scipy.integrate import quad
 import matplotlib.pyplot
 import numpy as np
+from main import utilities
 
 # Variables with simple values
 mass = 0.511 * 1e+6 / 299792458 ** 2  # eV * (s / m) ** 2
@@ -26,6 +27,7 @@ plt = matplotlib.pyplot
 
 class SolvingProblem:
 
+    eff_m: Union[ndarray, Tuple[ndarray, Optional[float]]]
     potential: Union[ndarray, Tuple[ndarray, Optional[float]]]
     _temperature: Union[float, Any]
 
@@ -61,7 +63,7 @@ class SolvingProblem:
         self.potential.put(-1, Ef + v)
 
     def tunneling(self, E):
-        k = [csqrt(2. * mass * (E - v)) / hbar for v in self.potential]
+        k = [csqrt(2. * mass * self.eff_m * (E - v)) / hbar for v in self.potential]
         matrix = identity(2, dtype=np.complex128)
         for n in range(0, self.N - 1):
             if k[n].__abs__() < 1e-5:
@@ -73,6 +75,9 @@ class SolvingProblem:
             matrix = dot(matrix, [[T11, T12], [T21, T22]])
 
         return matrix[0][0].__abs__() ** -2
+
+    def set_eff_m(self, input_name):
+        self.eff_m = utilities.get_eff(input_name, 5.03)
 
 
 if __name__ is '__main__':
