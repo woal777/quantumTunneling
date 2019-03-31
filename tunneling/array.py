@@ -1,4 +1,4 @@
-import main.solve as solve
+import tunneling.solve as solve
 import numpy as np
 import cmath
 

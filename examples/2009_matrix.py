@@ -1,5 +1,5 @@
 import numpy as np
-import main.solve as sol
+import tunneling.solve as sol
 import matplotlib.pyplot as plt
 
 arr = np.genfromtxt('/home/jinho/PycharmProjects/quantumTunneling/examples/input/down.dat')

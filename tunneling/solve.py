@@ -24,7 +24,7 @@ plt = matplotlib.pyplot
 
 class SolvingProblem:
     # potential variables
-    def __init__(self, thickness: float, area: float, start: float, end, eff_m):
+    def __init__(self, area: float, start: float, end: float, eff_m: float, thickness: float):
         self.N = 50 + 2
         self.potential = array([0.3])
         self.reduced_mass = cmath.sqrt(0.511 * eff_m) * 1e+3 / 299792458  # eV ** 0.5 * s / m

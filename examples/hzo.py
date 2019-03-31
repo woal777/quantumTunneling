@@ -1,4 +1,4 @@
-from main import analytic
+from tunneling import analytic
 from numpy import linspace
 
 

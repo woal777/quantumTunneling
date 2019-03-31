@@ -1,4 +1,4 @@
-from main.analytic import *
+from tunneling.analytic import *
 import matplotlib.pyplot as plt
 import numpy as np
 

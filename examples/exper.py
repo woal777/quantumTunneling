@@ -1,8 +1,8 @@
 try:
-    from main import solve, analytic
+    from tunneling import solve, analytic
 except ImportError:
-    import main.solve
-    import main.analytic as analytic
+    import tunneling.solve
+    import tunneling.analytic as analytic
 
 from cmath import exp, sqrt, sinh, pi
 import matplotlib.pyplot as plt

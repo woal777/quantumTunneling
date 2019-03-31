@@ -1,9 +1,9 @@
 try:
-    from main import solve
+    from tunneling import solve
 except ImportError:
-    import main.solve
+    import tunneling.solve
 
-from main import analytic
+from tunneling import analytic
 from cmath import exp, sqrt, sinh, pi, log
 import matplotlib.pyplot as plt
 import numpy as np
@@ -43,41 +43,49 @@ if __name__ == "__main__":
     fig = plt.figure()
     d = 4.8e-9  # m
     # area = 10e-9 * 2 * pi * 1e+6
-    start = -.3
+    start = -.31
     end = -start
-    area = 1
+    area = 0.5 * 1.3 * 0.5 * 1.5 * 1e-12 * 1e+6
     # up
+    eff_m = 0.13
     fig.add_subplot(221)
-    s = solve.SolvingProblem(d, area, 0.24, 1.52, 1.)
-    s.set_temperature(5)
+    s = solve.SolvingProblem(d, area, 0.24, 1.52, eff_m)
+    s.set_temperature(300)
+    arr = np.genfromtxt('2009_raw_down')
+    x, y = arr[:,0], arr[:,1]
+    plt.plot(x, y)
     x, y = s.main(start, end)
     plt.plot(x, y, 'g')
     fig.add_subplot(223)
     plt.plot(x, y)
 
     # down
-    s = solve.SolvingProblem(d, area, 0.48, .96, 1.)
-    s.set_temperature(5)
-    x, y = s.main(start, end)
     fig.add_subplot(222)
+    s = solve.SolvingProblem(d, area, 0.48, .96, eff_m)
+    s.set_temperature(300)
+    arr = np.genfromtxt('2009_raw_up')
+    x, y = arr[:,0], arr[:,1]
+    plt.plot(x, y)
+    x, y = s.main(start, end)
     plt.plot(x, y, 'g')
     fig.add_subplot(223)
     plt.plot(x, y)
-
-    # up
-    x = np.linspace(start, end, 30)
-    y = np.array([di(d, v, 0.24, 1.52, 1) * area for v in x])
-    fig.add_subplot(221)
-    plt.plot(-x, -y)
-    fig.add_subplot(224)
-    plt.plot(-x, -y)
-
-    # down
-    x = np.linspace(start, end, 30)
-    y = np.array([di(d, v, .48, .96, 1) * area for v in x])
-    fig.add_subplot(222)
-    plt.plot(-x, -y)
-    fig.add_subplot(224)
-    plt.plot(-x, -y)
-
     plt.show()
+
+'''
+    # up
+    x = np.linspace(start, end, 30)
+    y = np.array([di(d, v, 0.24, 1.52, eff_m) * area for v in x])
+    fig.add_subplot(221)
+    plt.plot(-x, -y)
+    fig.add_subplot(224)
+    plt.plot(-x, -y)
+
+    # down
+    x = np.linspace(start, end, 30)
+    y = np.array([di(d, v, .48, .96, eff_m) * area for v in x])
+    fig.add_subplot(222)
+    plt.plot(-x, -y)
+    fig.add_subplot(224)
+    plt.plot(-x, -y)
+'''

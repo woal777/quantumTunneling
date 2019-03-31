@@ -1,7 +1,7 @@
-from main import analytic as anal
+from tunneling import analytic as anal
 import numpy as np
 from matplotlib import pyplot as plt
-from main import solve
+from tunneling import solve
 
 
 fig = plt.figure()

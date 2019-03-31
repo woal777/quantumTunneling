@@ -36,9 +36,9 @@ if __name__ == "__main__":
     plt.xticks(np.arange(-.55, .55, 0.2))
     plt.minorticks_off()
     plt.show()
-    # x, y = s.main(1., 3.)
+    # x, y = s.tunneling(1., 3.)
     # plt.semilogy(x, y, 'r')
-    #    x, y, y2, y3 = s.main(0.48, 0.96, 10e-09, 20e-09, 1000)
+    #    x, y, y2, y3 = s.tunneling(0.48, 0.96, 10e-09, 20e-09, 1000)
     #    yf = [k1 + k2 + k3 for k1, k2, k3 in zip(y, y2, y3)]
     #    plt.semilogy(x, yf, 'g')
     # plt.semilogy(x, y, 'r', x, y2, 'g', x, y3, 'b')

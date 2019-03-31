@@ -1,4 +1,4 @@
-from main.solve import SolvingProblem, array, hbar
+from tunneling.solve import SolvingProblem, array, hbar
 import cmath
 
 
