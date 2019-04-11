@@ -63,7 +63,7 @@ class SolvingProblem:
         self.potential.put(-1, Ef + v)
 
     def tunneling(self, E):
-        k = [csqrt(2. * mass * self.eff_m * (E - v)) / hbar for v in self.potential]
+        k = [csqrt(2. * mass * self.eff_m[str(round(E - v, 2))] * (E - v)) / hbar for v in self.potential]
         matrix = identity(2, dtype=np.complex128)
         for n in range(0, self.N + 1):
             if k[n].__abs__() < 1e-5:

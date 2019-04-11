@@ -44,7 +44,7 @@ def get_eff(filename, c):
     mass = k ** 2 / energy * hbar_c ** 2 / mcs
     eff_m_dict = dict()
     for i in range(len(mass)):
-        eff_m_dict[round(energy[i], 2)] = mass[i]
+        eff_m_dict[str(round(energy[i], 2))] = mass[i]
     return eff_m_dict
 
 
