@@ -8,6 +8,7 @@ pretty plot imported from pymatgen[2]
 [2] http://pymatgen.org/
 
 Getting the code
+-------------
 
 1. Requirements
 
