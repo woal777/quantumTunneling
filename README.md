@@ -18,5 +18,5 @@ Getting the code
 
 2. Download from git
 
-git clone https://github.com/woal777/quantumTunneling.git  
-export PYTHONPATH=${PYTHONPATH}:--{the path of quantumTunneling}--
+>git clone https://github.com/woal777/quantumTunneling.git  
+>export PYTHONPATH=${PYTHONPATH}:--{the path of quantumTunneling}--
