@@ -14,12 +14,12 @@ Getting the code
 
 >pip install numpy
 
-pip install scipy
+>pip install scipy
 
-pip install matplotlib
+>pip install matplotlib
 
 2. Download from git
 
 >git clone https://github.com/woal777/quantumTunneling.git
 
-export PYTHONPATH=${PYTHONPATH}:--{the path of quantumTunneling}--
+>export PYTHONPATH=${PYTHONPATH}:--{the path of quantumTunneling}--
