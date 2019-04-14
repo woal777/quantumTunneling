@@ -12,9 +12,9 @@ Getting the code
 
 1. Requirements
 
-pip install numpy  
-pip install scipy  
-pip install matplotlib
+>pip install numpy  
+>pip install scipy  
+>pip install matplotlib
 
 2. Download from git
 
