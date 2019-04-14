@@ -13,10 +13,13 @@ Getting the code
 1. Requirements
 
 >pip install numpy
+
 pip install scipy
+
 pip install matplotlib
 
 2. Download from git
 
 >git clone https://github.com/woal777/quantumTunneling.git
+
 export PYTHONPATH=${PYTHONPATH}:--{the path of quantumTunneling}--
