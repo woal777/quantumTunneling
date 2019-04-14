@@ -12,10 +12,8 @@ Getting the code
 
 1. Requirements
 
->pip install numpy
-
->pip install scipy
-
+>pip install numpy\n
+>pip install scipy\n
 >pip install matplotlib
 
 2. Download from git
