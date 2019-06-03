@@ -1,22 +1,7 @@
-# quantumTunneling
-WKB with transfer matrix mathod[1]
+This is the old version.
 
-[1]IEEE JOURNAL OF QUANTUM ELECTRONICS, VOL. 26, NO. 11, NOVEMBER 1990
+I will remove soon.
 
-pretty plot imported from pymatgen[2]
+The address below is the new version.
 
-[2] http://pymatgen.org/
-
-Getting the code
--------------
-
-1. Requirements
-
->pip install numpy  
->pip install scipy  
->pip install matplotlib
-
-2. Download from git
-
->git clone https://github.com/woal777/quantumTunneling.git  
->export PYTHONPATH=${PYTHONPATH}:--{the path of quantumTunneling}--
+https://github.com/woal777/QuantumTunneling2
